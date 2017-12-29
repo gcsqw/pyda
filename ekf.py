@@ -16,7 +16,7 @@ class ExtendedKalmanFilter():
         P_f = self.jcb_f(x).dot(self.P).dot(self.jcb_f(x).T) + self.Q
         
         # get Kalman matrix
-        K = P_f.dot(self.jcb_h(x_f)).dot(np.linalg.inv(self.jcb_h(x_f).dot(P_f).dot(self.jcb_h(x_f).T) + R))
+        K = P_f.dot(self.jcb_h(x_f).T).dot(np.linalg.inv(self.jcb_h(x_f).dot(P_f).dot(self.jcb_h(x_f).T) + R))
 
         # calculate x and P
         self.P = (np.identity(int(np.sqrt(self.P.size))) - K.dot(self.jcb_h(x_f))).dot(P_f)
